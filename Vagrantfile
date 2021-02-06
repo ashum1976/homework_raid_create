@@ -45,8 +45,17 @@ MACHINES = {
                                             :dfile => "./hddvm/sata5.vdi",
                                             :size => 1024,
                                             :port => 5
+                                            },
+                         :sata6 => {
+                                            :dfile => "./hddvm/sata6.vdi",
+                                            :size => 1024,
+                                            :port => 6
+                                            },
+                         :sata7 => {
+                                            :dfile => "./hddvm/sata7.vdi",
+                                            :size => 1024,
+                                            :port => 7
                                             }
-                         
                                     }
                                 }
                             }
@@ -81,8 +90,9 @@ Vagrant.configure("2") do |config|
                               #  if boxconfig.key?(:sync_path)
                               #      boxconfig[:sync_path].each do |path|
                               #          config.vm.synced_folder path
-                              #            config.vm.synced_folder boxconfig[:sync_path], "/vagrant"
-                              #     end
+                                          config.vm.synced_folder boxconfig[:sync_path], "/vagrant"
+                              #     end              
+
                               #  end
 
                                 # VM resources config
@@ -99,9 +109,9 @@ Vagrant.configure("2") do |config|
                                 end
                                 
                                 if needsController == true
-                                            v.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
+                                           v.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
                                            boxconfig[:diskv].each do |dname, dconf|
-                                            v.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium',dconf[:dfile]]
+                                           v.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium',dconf[:dfile]]
                                      end     
                                 end
                     end
@@ -115,7 +125,5 @@ Vagrant.configure("2") do |config|
                                 
                                 
                     end
-                    
-              
     end
 end

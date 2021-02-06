@@ -1,0 +1,1 @@
+{"dependencies":[["open4",[">= 0.4.0"]],["Platform",[">= 0.4.0"]],["popen4",["~> 0.1.2"]],["sahara",["= 0.0.17"]]],"checksum":"947bd2f7ce04607daa30ee096b2ef904a0c3538446b4a1ac14287de9cd93fd0f","vagrant_version":"2.2.14"}

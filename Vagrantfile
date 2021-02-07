@@ -10,12 +10,6 @@ MACHINES = {
               :memory => 2048,
               # networks
               :net => [],
-#              :net => {
- #                      :eth1 => {
-  #                                        :ipaddr => '192.168.15.15'
-   #                              }
-    #                   },                    
-                    
               # forwarded ports
               :forwarded_port => [],
               :sync_path => "./sync_data",
@@ -60,11 +54,7 @@ MACHINES = {
                                 }
                             }
 Vagrant.configure("2") do |config|
-  MACHINES.each do |boxname, boxconfig|   #  - Задание переменных |boxname (raid_create) является массивом переменных и boxconfig (остальные переменные масива, cpu, memory,disk и т.д. ),  из масива MACHINES (можно создавать по шаблону много машин, например:
-                                                                                # kernel_updates
-                                                                                # raid_create
-                                                                                # и т.д)
-                                                                                # т.е добавляем ещё одно описание следующей машины и так далее, сколько нужно, дальше они будут создаваться в цикле, для провайдера virtualbox.
+  MACHINES.each do |boxname, boxconfig|  
     # Disable shared folders
                 config.vm.synced_folder ".", "/vagrant", disabled: true  # - отключаем проброс папок с хостовой системы в гостевую для всех создаваемых машин, но можем включить 
                 # Apply VM config

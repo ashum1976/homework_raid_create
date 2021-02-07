@@ -1,8 +1,8 @@
 #! /usr/bin/bash
 
-raid=$(ls /dev/md*)
 
-if [ ! -e $raid 2>/dev/null ]; then
+
+if [ ! -e /dev/md* ]; then
   
           # Занулить суперблоки на дисках
 
@@ -48,7 +48,7 @@ if [ ! -e $raid 2>/dev/null ]; then
                 
 else
         echo "Рейд существует"
-        echo $raid
+        echo $(ls /dev/md*)
         exit 1
         
 fi

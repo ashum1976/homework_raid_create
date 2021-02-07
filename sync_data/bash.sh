@@ -2,7 +2,7 @@
 
 raid=$(ls /dev/md*)
 
-if [ ! -e $raid ]; then
+if [ ! -e $raid 2>/dev/null ]; then
   
           # Занулить суперблоки на дисках
 

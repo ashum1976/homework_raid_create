@@ -3,7 +3,7 @@ MACHINES = {
   # VM name "raid_create"
  :"raid-create" => {
               # VM box
-              :box_name => "centos7_k5_raid_home",
+              :box_name => "ashum1976/centos7_k5_raid_home",
               # VM CPU count
               :cpus => 3,
               # VM RAM size (Mb)
@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
                                                                                 # и т.д)
                                                                                 # т.е добавляем ещё одно описание следующей машины и так далее, сколько нужно, дальше они будут создаваться в цикле, для провайдера virtualbox.
     # Disable shared folders
-                # config.vm.synced_folder ".", "/vagrant", disabled: true  # - отключаем проброс папок с хостовой системы в гостевую для всех создаваемых машин, но можем включить 
+                config.vm.synced_folder ".", "/vagrant", disabled: true  # - отключаем проброс папок с хостовой системы в гостевую для всех создаваемых машин, но можем включить 
                 # Apply VM config
                     config.vm.define boxname do |box|
                         # Set VM base box and hostname
@@ -75,23 +75,22 @@ Vagrant.configure("2") do |config|
                         # Additional network config if present
                                 if boxconfig.key? (:net) # - () это наличие такой переменной (значения) в массиве 
                                      boxconfig [:net].each do |etconf, ipconf| # - цикл по значению переменно [:net], т.е :eth1 => { :ipaddr => '192.168.10.15'}
-                                    #    box.vm.network "private_network", ip: ipconf
                                     #     "#{ipconf}" - получить строку находящуюся в переменной ipconf (:ipaddr => '192.168.10.15')
-                                        box.vm.network :private_network, ip: ipconf[:ipaddr]
+                                     box.vm.network :private_network, ip: ipconf[:ipaddr]
                                     end
                                 end
                         # Port-forward config if present
                                 if boxconfig.key?(:forwarded_port)
                                     boxconfig[:forwarded_port].each do |port|
-                                        box.vm.network "forwarded_port", port
+                                    box.vm.network "forwarded_port", port
                                     end
                                 end
                         #Включение директорий для проброса с хостовой машины на гостевую
-                              #  if boxconfig.key?(:sync_path)
+                                if boxconfig.key?(:sync_path)
                               #      boxconfig[:sync_path].each do |path|
-                              #          config.vm.synced_folder path
-                                          config.vm.synced_folder boxconfig[:sync_path], "/vagrant"
-                              #     end              
+                              #      config.vm.synced_folder path
+                                     config.vm.synced_folder boxconfig[:sync_path], "/vagrant"
+                                   end              
 
                               #  end
 

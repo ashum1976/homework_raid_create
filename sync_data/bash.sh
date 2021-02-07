@@ -1,12 +1,10 @@
 #! /usr/bin/bash
 
+raid=$(ls /dev/md*)
 
-if [ ! -e $(ls /dev/md*) ]; then
+if [ ! -e $raid ]; then
   
-  
-
-
-        # Занулить суперблоки на дисках
+          # Занулить суперблоки на дисках
 
                 mdadm --zero-superblock --force /dev/sd{b,c,d,e,f,g,h} > /dev/null 2>&1
 
@@ -50,16 +48,8 @@ if [ ! -e $(ls /dev/md*) ]; then
                 
 else
         echo "Рейд существует"
-        echo $(ls /dev/md*)
+        echo $raid
         exit 1
         
 fi
   
-#mkdir /etc/mdadm
-
-#echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
-
-#mdadm --detail --scan --verbose | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
-
-
-touch ./test
